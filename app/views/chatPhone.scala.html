@@ -1,0 +1,68 @@
+<!doctype html>
+<!--[if lte IE 7]> <html class="no-js ie67 ie678" lang="fr"> <![endif]-->
+<!--[if IE 8]> <html class="no-js ie8 ie678" lang="fr"> <![endif]-->
+<!--[if IE 9]> <html class="no-js ie9" lang="fr"> <![endif]-->
+<!--[if gt IE 9]> <!--><html class="no-js" lang="fr"> <!--<![endif]-->
+<head>
+		<meta charset="UTF-8">
+		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+		<title>CloudReady</title>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/FwMC-Mobile-2.1.0.js")"></script>
+		<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/Controlers.js")"></script>
+		
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/FwMC-Mobile-2.1.0.css")" />
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/knacss.css")" media="all" />
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/styles.css")" />
+		
+		<meta name="#step_rejoindre" content="-mvc-bind" data-page="interaction" data-postaction="AM.CloudReady.connect" />
+		
+</head>
+<body>	
+	<!-- header persistant dans tous les écrans -->
+	<header id="header" class="txtcenter">
+		<p class="biggest">CloudReady</p>
+	</header>	
+	
+	<!-- Ecran accueil avec le menu-->
+	<div data-role="page" id="accueil" class="pas pt3">		
+		<nav id="navigation" role="navigation">
+			<ul class="pa0">
+				<li class="mt1"><a class="button row" href="#organiser" data-transition="slide">Organiser une nouvelle intéraction</a></li>
+				<li class="mt1"><a class="button row" href="#rejoindre" data-transition="slide">Rejoindre une intéraction</a></li>
+			</ul>
+		</nav>
+	</div>
+	
+	<!-- Ecran créer une nouvelle interaction -->
+	<div data-role="page" id="organiser" class="pas pt3">		
+		<form id="formOrganize" action="step_rejoindre" method="get" class="pa0" >
+			<label for="dateVirement" class="row mt1">Nom de l'organisateur</label>
+			<input type="text" name="responsable" class="row fwmc-input-text" id="responsable" />
+			<input type="submit" id="submit" value="Démarrer" class="row button mt1" />
+		</form>
+	</div>
+	
+	<!-- Ecran rejoindre un interaction existante-->
+	<div data-role="page" id="rejoindre" class="pas pt3">		
+		<form id="formJoin" action="step_rejoindre" method="get" class="pa0" >
+			<label for="responsable" class="row mt1">Nom de l'organisateur</label>
+			<input type="text" name="responsable" class="row fwmc-input-text" id="responsable" />
+			<label for="participant" class="row mt1">Nom du participant</label>
+			<input type="text" name="participant" class="row fwmc-input-text" id="participant" />
+			<input type="submit" id="submit" value="Démarrer" class="row button mt1" />
+		</form>
+	</div>
+	
+	<!-- Ecran interagir -->
+	<div data-role="page" id="interaction" class="pas pt3">		
+		<textarea class="row mt1" id="talk"></textarea>
+		<div id="messages" class="scroll"></div>
+		<input type="button" id="btnDisconnect" value="Déconnecter" class="row button mt1" />	
+	</div>
+	
+</body>
+</html>

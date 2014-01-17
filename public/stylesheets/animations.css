@@ -1,0 +1,109 @@
+/* ----------------------------- */
+/*     Fondu en apparition (fade)
+/* ----------------------------- */
+/* Valeurs de départ : */
+.animation-fade {
+  -webkit-transform:translate3d(0,0,0)
+}
+/* Début arrivée sur l'écran */
+.animation-fade.ng-enter {
+    -webkit-transition: .6s linear all; 
+    opacity: 0;
+}
+/* Fin arrivée sur l'écran */
+.animation-fade.ng-enter-active {
+    opacity: 1;   
+}
+/* Début sortie de l'écran */
+.animation-fade.ng-leave {
+  -webkit-transition: .2s linear all; 
+  position:absolute; 
+  left:0;
+  right:0;
+  opacity: .4;
+}
+/* Fin sortie de l'écran */
+.animation-fade.ng-leave-active {
+  position:absolute; 
+  left:0;
+  right:0;
+  opacity: 0;   
+}
+/* --------------------------------------------------- */
+/*  Translate Right
+/*  On fait en même temps un effet de fade via l'opacity
+/*  plus un effet de slide avec translate pour bénéficier
+/*  de l'accélération matérielle la sortie ne se fait que 
+/*  sur un fade.
+/* --------------------------------------------------- */
+/* 
+ * Valeurs de départ :
+ * - Démarrage de l'accélération 3D
+ * - Position relative pour être sûr de faire "slider" l'objet dans le flux
+ */
+.animation-translate-right {
+  -webkit-transform:translate3d(0,0,0);
+   position: relative; 
+}
+/* Début arrivée sur l'écran */
+.animation-translate-right.ng-enter {
+  -webkit-transition: .3s ease-in-out all;
+  left:100%; /* on place l'objet à droite */
+}
+/* Fin arrivée sur l'écran */
+.animation-translate-right.ng-enter-active {
+  -webkit-transform: translate3d(-100%, 0, 0);
+}
+/* Début sortie de l'écran */
+.animation-translate-right.ng-leave {
+  -webkit-transition: .1s ease-in-out all;
+  /*on place l'objet en absolu, on met son z-index à 0 et on le centre (left et right) 
+  pour laisser apparaître le nouvel écran par dessus */
+  position:absolute; 
+  left:0;
+  right:0;
+  z-index: 0;
+  opacity: .3; /* on commence la transparence */
+}
+/* Fin sortie de l'écran */
+.animation-translate-right.ng-leave-active {  
+  position:absolute;  
+  left:0;
+  right:0;
+  -webkit-transform: translate3d(100%, 0, 0);
+  z-index: 0;
+  opacity: 0; /* on finit la transparence */
+}
+/* ----------------------------- */
+/*    Animation de liste (fade)
+/* ----------------------------- */
+.animation-liste-fade-left.ng-enter, 
+.animation-liste-fade-left.ng-leave, 
+.animation-liste-fade-left.ng-move {
+  -webkit-transform:translate3d(0,0,0) ;
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  position:relative;
+}
+.animation-liste-fade-left.ng-enter {
+  -webkit-transform: translate3d(-10px, 0, 0);
+  opacity:0;
+}
+.animation-liste-fade-left.ng-enter.ng-enter-active {
+  -webkit-transform: translate3d(10px, 0, 0);
+  opacity:1;
+}
+.animation-liste-fade-left.ng-leave {
+  -webkit-transform: translate3d(10px, 0, 0);
+  opacity:1;
+}
+.animation-liste-fade-left.ng-leave.ng-leave-active {
+  -webkit-transform: translate3d(-10px, 0, 0);
+  opacity:0;
+}
+.animation-liste-fade-left.ng-move {
+  opacity:0.5;
+}
+.animation-liste-fade-left.ng-move.ng-move-active {
+  opacity:1;
+}
