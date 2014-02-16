@@ -1,11 +1,11 @@
-<button class="icon-bracket1" ng-click="goHome()"></button>
-<input placeholder="Filtrer les listes ..." class="input-text w90 right" ng-model="f" />
+<input placeholder="Filtrer les listes ..." class="input-text row" ng-model="f" />
 <ul class="pa0" class="list">
     <p class="txtcenter wait" ng-show="messageWait !== ''">{{messageWait}}</p>
     <li class="mb1 animation-liste-fade-left" data-ng-repeat="liste in listes | filter:f">
         <div class="item w100 txtcenter">{{liste.dateRedaction}}            
             <button class="icon-cross right" ng-click="deleteListe($index)"></button>
             <button class="icon-arrow1 right" ng-click="modifyListe($index)"></button>
+            <button class="icon right" ng-click="copyListe($index)">c</button>
         </div>
         <div class="item w100" ng-repeat="course in liste.courses" ng-class-odd="'odd'"  >
             <div class="txtleft">

@@ -91,7 +91,7 @@ modControleurs.controller("CreationListeCtrl", ["$scope", "ComposantParametres",
 				$scope.formDesignation = "";
 				$scope.formQte = "";
 				$scope.formCourses = [];
-				location.hash = "#/menu";
+				location.hash = "#/listesEnCours";
 			}
 		);
 	}
@@ -99,7 +99,7 @@ modControleurs.controller("CreationListeCtrl", ["$scope", "ComposantParametres",
   	 * Retour au menu principal
   	 */
 	$scope.goHome = function() {
-		location.hash = "#/menu";
+		location.hash = "#/listesEnCours";
 	}
 }]);
 /**
@@ -195,6 +195,18 @@ modControleurs.controller("AffichageListesEnCoursCtrl", ["$scope", "ComposantLis
 			)
 		}
 	}
+	/**
+  	 *
+  	 */
+	$scope.copyListe = function(indexListe) {
+		if (confirm("Etes-vous sûr de vouloir copier cette liste ?")) {
+			ComposantListe.copierListe($scope.listes[indexListe]._id.$oid).then( 
+				function(data) {
+					$scope.listes.push(data);
+				}
+			)
+		}
+	}
   	/**
   	 *
   	 */
@@ -205,7 +217,7 @@ modControleurs.controller("AffichageListesEnCoursCtrl", ["$scope", "ComposantLis
   	 * Retour au menu principal
   	 */
 	$scope.goHome = function() {
-		location.hash = "#/menu";
+		location.hash = "#/listesEnCours";
 	}	
 }]);
 /**
@@ -213,4 +225,14 @@ modControleurs.controller("AffichageListesEnCoursCtrl", ["$scope", "ComposantLis
  */
 modControleurs.controller("AffichageListesArchiveesCtrl", ["$scope", function($scope){
 	$scope.listes = DB.listes;
+}]);
+
+/**
+ * Contoleur du menu de navigation
+ */
+modControleurs.controller("MenuCtrl", ["$scope", "$location", function($scope, $location){
+	$scope.navClass = function (page) {
+        var currentRoute = $location.path().substring(1) || 'menu';
+        return page === currentRoute ? 'item-actif' : '';
+    };        
 }]);

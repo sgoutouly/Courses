@@ -9,53 +9,40 @@ var modServices = angular.module("courses.services", []);
 modServices.factory("ComposantListe", ["$q", "$http", function($q, $http) {
    return {
 		consulterListe: function(id) {
-			var defer = $q.defer()
-			$http.get("/mongo/collections/listes/" + id).success(function(data) {
-				defer.resolve(data);
-			}).error(function(status) {
-				alert("Erreur : " + status);
-			});
-			return defer.promise;
+			return $http.get("/mongo/collections/listes/" + id)
+				.then(function(result) {return result.data;}, 
+					function(result) {alert("Erreur : " + result.status);});
 		}
 		,   	
 		rechercherListe: function() {
-			var defer = $q.defer()
-			$http.get("/mongo/collections/listes").success(function(data) {
-				defer.resolve(data);
-			}).error(function(status) {
-			    alert("Erreur : " + status);
-			});
-			return defer.promise;
+			return $http.get("/mongo/collections/listes")
+				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
+		}
+		,
+		copierListe: function(id) {	
+			var	that = this;
+			return that.consulterListe(id)
+				.then(function(listeCopiee) {
+					return that.creerListe({dateRedaction: new Date().toLocaleDateString(), courses: listeCopiee.courses})
+				})
+				.then(function (headers) {
+					return $http.get(headers.location).then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
+				});
 		}
 		,
 		creerListe: function(params) {
-			var defer = $q.defer()
-			$http.post("/mongo/collections/listes", params).success(function(data) {
-				defer.resolve(data);
-			}).error(function(status) {
-			    alert("Erreur : " + status);
-			});
-			return defer.promise;
+			return $http.post("/mongo/collections/listes", params)
+				.then(function(result) {return result.headers();}, function(result) {alert("Erreur : " + result.status);});
 		}
 		,
 		modifierListe: function(id, params) {
-			var defer = $q.defer()
-			$http.put("/mongo/collections/listes/" + id, params).success(function(data) {
-				defer.resolve(data);
-			}).error(function(status) {
-			    alert("Erreur : " + status);
-			});
-			return defer.promise;
+			return $http.put("/mongo/collections/listes/" + id, params)
+				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
 		}		
 		,
 		supprimerListe: function(id) {
-			var defer = $q.defer();
-			$http.delete("/mongo/collections/listes/" + id).success(function(data) {
-				defer.resolve(data);
-			}).error(function(status) {
-			    alert("Erreur : " + status);
-			});
-			return defer.promise;
+			return $http.delete("/mongo/collections/listes/" + id)
+				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
 		}
    }
 }]);
@@ -76,13 +63,8 @@ modServices.factory("ajouterCourse", function() {
 modServices.factory("ComposantParametres", ["$q", "$http", function($q, $http) {
    return {
 		lire: function() {
-			var defer = $q.defer();
-			$http.get("/mongo/collections/parametres/first").success(function(data) {
-				defer.resolve(data);
-			}).error(function(status) {
-			    alert("Erreur : " + status);
-			});
-			return defer.promise;
+			return $http.get("/mongo/collections/parametres/first")
+				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
 		}
    }
 }]);

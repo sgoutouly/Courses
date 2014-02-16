@@ -24,10 +24,9 @@ import com.mongodb.util.JSON;
 /**
  * Contrôleur Play! générique chargé des interactions avec une base MongoDB
  * 
- * @author DTI/MDV/IDV/ADMC
+ * @author SGY
  * @version 1.0
  * @date 31 oct. 2013
- * @copyright La Poste 2013
  */
 public class MongoExplorer extends Controller {
 
@@ -57,9 +56,11 @@ public class MongoExplorer extends Controller {
 				return notFound("Collection introuvable");
 			}
 			DBCollection collection = db.getCollection(collectionName);
-			collection.insert((DBObject) JSON.parse(request().body().asJson().toString()));
+			DBObject docMongo = (DBObject) JSON.parse(request().body().asJson().toString());
+			docMongo.put("_id", new ObjectId()); // On calcule l'id à l'avance pour le renvoyer dans les headers de la reponse
+			collection.insert(docMongo);
+			response().setHeader(LOCATION, "/mongo/collections/listes/" + docMongo.get("_id").toString());
 			return created();
-
 		}
 		catch (Exception e) {
 			return internalServerError(e.getMessage());

@@ -9,25 +9,37 @@
 		<title>Courses</title>
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 		<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+		<script type="text/javascript" charset="utf-8" src="http://localhost:35729/livereload.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/lib/angular.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/lib/angular-route.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/lib/angular-animate.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/lib/speedclick.js"></script>
+		<script type="text/javascript" charset="utf-8" src="javascripts/lib/zepto.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/mock/courses_db.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModApp.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModErrors.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModServices.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModControleurs.js"></script>		
+		<script type="text/javascript" charset="utf-8" src="menu/menu.js"></script>	
 		
 		<link rel="stylesheet" href="stylesheets/knacss.css" media="all">
 		<link rel="stylesheet" href="stylesheets/styles.css" media="all">
 		<link rel="stylesheet" href="stylesheets/animations.css" media="all">
+		<link rel="stylesheet" href="menu/menu.css" media="all">
 </head>
 <body ng-app="courses">
-	<!-- header persistant dans tous les écrans -->
-	<header id="header" class="txtcenter">
-		<p class="biggest">Courses</p>
-	</header>
-	<div ng-view class="pas animation-fade"><p class="txtcenter wait h3-like">Chargement des données ...</p></div> 	
+	<div class="menu-shadow" id="shadow"></div>
+	<div class="menu" id="menu">
+		<div class="inner-menu">
+			<div class="menu-bloc-message txtcenter mt2">
+				<img src="images/courses-logo-rond-sma.jpg" />
+			</div>
+			<ul class="mt2" ng-controller="MenuCtrl">
+				<li class="menu-item" ng-class="navClass('listesEnCours')"><a href="#/listesEnCours"><span>Les listes en cours</span></a></li>
+				<li class="menu-item" ng-class="navClass('creationListe')"><a href="#/creationListe"><span>Créer une liste vierge</span></a></li> 
+			</ul>
+		</div>
+	</div>
+	<div ng-view class="pas animation-fade"><p class="txtcenter wait h3-like">Chargement des données ...</p></div>
 </body>
 </html>

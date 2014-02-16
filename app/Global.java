@@ -7,10 +7,9 @@ import utils.MongoClientHolder;
 /**
  * Global
  *
- * @author DTI/MDV/IDV/ADMC
+ * @author SGY
  * @version 1.0
  * @date 5 nov. 2013 
- * @copyright La Poste 2013
  */
 public class Global extends GlobalSettings {
 
