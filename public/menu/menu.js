@@ -170,7 +170,7 @@ function MenuPrincipal(menu, bouton, shadow) {
 $(document).ready(function() {
 		var menuPrincipal = new MenuPrincipal(
 		document.getElementById("menu"), 
-		document.getElementById("menuButton"), 
+		document.getElementById("menuBouton"), 
 		document.getElementById("shadow"));
 	$("#menu li").on("click", function(e) {menuPrincipal.hideMenu(e)});
 });
