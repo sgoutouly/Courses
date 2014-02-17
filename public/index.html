@@ -19,7 +19,7 @@
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModApp.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModErrors.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModServices.js"></script>
-		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModControleurs.js"></script>		
+		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModControleurs.js"></script>
 		<script type="text/javascript" charset="utf-8" src="menu/menu.js"></script>	
 		
 		<link rel="stylesheet" href="stylesheets/knacss.css" media="all">
@@ -28,6 +28,12 @@
 		<link rel="stylesheet" href="menu/menu.css" media="all">
 </head>
 <body ng-app="courses">
+
+	<header>
+		<button id="menuBouton" class="menuButton">|||</button>
+		<div class="txtcenter biggest pt0">Les courses	</div>
+	</header>
+
 	<div class="menu-shadow" id="shadow"></div>
 	<div class="menu" id="menu">
 		<div class="inner-menu">
@@ -40,6 +46,9 @@
 			</ul>
 		</div>
 	</div>
-	<div ng-view class="pas animation-fade"><p class="txtcenter wait h3-like">Chargement des données ...</p></div>
+
+	<div ng-view class="pas animation-fade">
+		<p class="txtcenter wait h3-like">Chargement des données ...</p>
+	</div>
 </body>
 </html>
