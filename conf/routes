@@ -3,7 +3,7 @@
 # ~~~~
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file               				controllers.Assets.at(path="/public", file)
 
 # Services Mongo
 GET		/mongo/collections							controllers.MongoExplorer.collections()
@@ -13,3 +13,8 @@ POST	/mongo/collections/:collectionName			controllers.MongoExplorer.create(colle
 DELETE	/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.delete(collectionName:String, docID:String)
 GET		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.getInCollection(collectionName:String, docID:String)
 PUT		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.updateInCollection(collectionName:String, docID:String)
+
+# Authentication
+GET     /login                             			controllers.Application.login()
+POST    /login                              		controllers.Application.authenticate()
+GET     /logout                             		controllers.Application.logout()

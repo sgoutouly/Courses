@@ -1,0 +1,29 @@
+@(form: Form[Application.Login])
+<html>
+    <head>
+        <title>Connexion</title>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/knacss.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/styles.css")">
+    </head>
+    <body>
+        
+        <div class="login">        
+            @helper.form(routes.Application.authenticate) {                     
+                @if(form.hasGlobalErrors) { 
+                    <p class="error">@form.globalError.message</p>
+                }            
+                @if(flash.contains("success")) {
+                    <p class="success">@flash.get("success")</p>
+                }            
+                <p><input class="input-text" name="email" placeholder="Login" value="@form("email").value"></p>
+                <p><input class="input-text" type="password" name="password" placeholder="Mot de passe"></p>
+                <p><button class="button icon icon-check" type="submit">Login</button></p>            
+            }
+        </div>
+            
+    </body>
+</html>
+    
+
+

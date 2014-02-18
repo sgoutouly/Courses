@@ -1,7 +1,50 @@
-@(message: String)
+<!doctype html>
+<html class="no-js" lang="fr" > 
+<head>
+	<meta charset="UTF-8">
+	<title>Courses</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 
-@main("Welcome to Play") {
+	<script type="text/javascript" charset="utf-8" src="http://mac-sylvain:35729/livereload.js"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/lib/angular.min.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/lib/angular-route.min.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/lib/angular-animate.min.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/lib/speedclick.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/lib/zepto.min.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/mock/courses_db.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/app/ModApp.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/app/ModErrors.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/app/ModServices.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("javascripts/app/ModControleurs.js")"></script>
+	<script type="text/javascript" charset="utf-8" src="@routes.Assets.at("menu/menu.js")"></script>	
+	
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/knacss.css")") media="all">
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/styles.css")" media="all">
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/animations.css")" media="all">
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("menu/menu.css")" media="all">
+</head>
+<body ng-app="courses">
 
-    @play20.welcome(message, style = "Java")
+	<header>
+		<button id="menuBouton" class="menuButton">|||</button>
+		<div class="txtcenter biggest">Les courses	</div>
+	</header>
 
-}
+	<div class="menu-shadow" id="shadow"></div>
+	<div class="menu" id="menu">
+		<div class="inner-menu">
+			<div class="menu-bloc-message txtcenter mt2">
+				<img src="images/courses-logo-rond-sma.jpg" />
+			</div>
+			<ul class="mt2" ng-controller="MenuCtrl">
+				<li class="menu-item" ng-class="navClass('listesEnCours')"><a href="#/listesEnCours"><span>Les listes en cours</span></a></li>
+				<li class="menu-item" ng-class="navClass('creationListe')"><a href="#/creationListe"><span>Créer une liste vierge</span></a></li> 
+			</ul>
+		</div>
+	</div>
+
+	<div ng-view class="pas animation-fade">
+		<p class="txtcenter wait h3-like">Chargement des données ...</p>
+	</div>
+</body>
+</html>
