@@ -13,7 +13,7 @@ public class Application extends Controller {
 
     private static Map<String, String> users = new HashMap<String, String>(2);
     static  {
-        users.put("sylvain", "sylvain  ");
+        users.put("sylvain", "sylvain");
         users.put("christine", "christine");
     }
   

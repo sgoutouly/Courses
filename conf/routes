@@ -15,6 +15,6 @@ GET		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.getInCo
 PUT		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.updateInCollection(collectionName:String, docID:String)
 
 # Authentication
-GET     /login                             			controllers.Application.login()
+GET     /                             			controllers.Application.login()
 POST    /login                              		controllers.Application.authenticate()
 GET     /logout                             		controllers.Application.logout()

@@ -11,12 +11,12 @@ modServices.factory("ComposantListe", ["$q", "$http", function($q, $http) {
 		consulterListe: function(id) {
 			return $http.get("/mongo/collections/listes/" + id)
 				.then(function(result) {return result.data;}, 
-					function(result) {alert("Erreur : " + result.status);});
+					function(result) {alert("Erreur : " + result.status + ", " + result.data);});
 		}
 		,   	
 		rechercherListe: function() {
 			return $http.get("/mongo/collections/listes")
-				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
+				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
 		}
 		,
 		copierListe: function(id) {	
@@ -26,23 +26,23 @@ modServices.factory("ComposantListe", ["$q", "$http", function($q, $http) {
 					return that.creerListe({dateRedaction: new Date().toLocaleDateString(), courses: listeCopiee.courses})
 				})
 				.then(function (headers) {
-					return $http.get(headers.location).then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
+					return $http.get(headers.location).then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
 				});
 		}
 		,
 		creerListe: function(params) {
 			return $http.post("/mongo/collections/listes", params)
-				.then(function(result) {return result.headers();}, function(result) {alert("Erreur : " + result.status);});
+				.then(function(result) {return result.headers();}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
 		}
 		,
 		modifierListe: function(id, params) {
 			return $http.put("/mongo/collections/listes/" + id, params)
-				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
+				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
 		}		
 		,
 		supprimerListe: function(id) {
 			return $http.delete("/mongo/collections/listes/" + id)
-				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
+				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
 		}
    }
 }]);

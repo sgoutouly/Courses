@@ -8,10 +8,10 @@
     </head>
     <body>
         
-        <div class="login">        
+        <div class="login">  
             @helper.form(routes.Application.authenticate) {                     
                 @if(form.hasGlobalErrors) { 
-                    <p class="error">@form.globalError.message</p>
+                    <p class="item">@form.globalError.message</p>
                 }            
                 @if(flash.contains("success")) {
                     <p class="success">@flash.get("success")</p>

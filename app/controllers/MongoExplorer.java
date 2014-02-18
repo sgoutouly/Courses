@@ -4,21 +4,15 @@ import org.bson.types.ObjectId;
 
 import java.util.Set;
 
+
 import play.libs.Json;
-import play.mvc.BodyParser;
-import play.mvc.Controller;
-import play.mvc.Result;
+import play.mvc.*;
 import play.Logger;
 import utils.MongoClientHolder;
 import utils.ETagHelper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.mongodb.BasicDBObject;
-import com.mongodb.WriteResult;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import com.mongodb.*;
 import com.mongodb.util.JSON;
 
 /**
@@ -28,6 +22,7 @@ import com.mongodb.util.JSON;
  * @version 1.0
  * @date 31 oct. 2013
  */
+@Security.Authenticated(Secured.class)
 public class MongoExplorer extends Controller {
 
 	/* Traitement ETAG */

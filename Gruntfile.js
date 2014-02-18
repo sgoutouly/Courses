@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         livereload: true
       },
       app: {
-        files: ['public/*.*']
+        files: ['public/*.*', 'app/views/*.*']
       },
       scripts: {
         files: ['public/**/*.*', 'public/**/**/*.*', 'public/**/**/**/*.*']
