@@ -4,6 +4,7 @@
 var coursesApp = angular.module("courses", [
 	"ngRoute", 
 	"ngAnimate", 
+  "ToolBox.services", 
 	"courses.errors", 
 	"courses.services", 
 	"courses.controleurs" 
@@ -21,3 +22,7 @@ coursesApp.config(['$routeProvider',
         templateUrl: 'partials/menu.html'
       })
   }]);
+
+
+
+

@@ -2,47 +2,42 @@
  * Module contenant les services de l'application
  */
 var modServices = angular.module("courses.services", []);
+
 /**
  * Service rechercherListe
  * Enregistre la lise en cours de saisie
  */
-modServices.factory("ComposantListe", ["$q", "$http", function($q, $http) {
+modServices.factory("ComposantListe", ["$q", "toolbox_http", function($q, toolbox_http) {
    return {
 		consulterListe: function(id) {
-			return $http.get("/mongo/collections/listes/" + id)
-				.then(function(result) {return result.data;}, 
-					function(result) {alert("Erreur : " + result.status + ", " + result.data);});
+			return toolbox_http.get("/mongo/collections/listes/" + id);
 		}
 		,   	
 		rechercherListe: function() {
-			return $http.get("/mongo/collections/listes")
-				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
+			return toolbox_http.get("/mongo/collections/listes");
 		}
 		,
 		copierListe: function(id) {	
 			var	that = this;
-			return that.consulterListe(id)
-				.then(function(listeCopiee) {
+			return that.consulterListe(id).then(
+				function(listeCopiee) {
 					return that.creerListe({dateRedaction: new Date().toLocaleDateString(), courses: listeCopiee.courses})
-				})
-				.then(function (headers) {
-					return $http.get(headers.location).then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
+				}).then(
+				function (headers) {
+					return toolbox_http.get(headers.location);
 				});
 		}
 		,
 		creerListe: function(params) {
-			return $http.post("/mongo/collections/listes", params)
-				.then(function(result) {return result.headers();}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
+			return toolbox_http("/mongo/collections/listes", params);
 		}
 		,
 		modifierListe: function(id, params) {
-			return $http.put("/mongo/collections/listes/" + id, params)
-				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
+			return toolbox_http.put("/mongo/collections/listes/" + id, params);
 		}		
 		,
 		supprimerListe: function(id) {
-			return $http.delete("/mongo/collections/listes/" + id)
-				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status + ", " + result.data);});
+			return toolbox_http.delete("/mongo/collections/listes/" + id);
 		}
    }
 }]);
@@ -60,11 +55,10 @@ modServices.factory("ajouterCourse", function() {
 /**
  * Service de lecture des paramètres
  */
-modServices.factory("ComposantParametres", ["$q", "$http", function($q, $http) {
+modServices.factory("ComposantParametres", ["$q", "toolbox_http", function($q, toolbox_http) {
    return {
 		lire: function() {
-			return $http.get("/mongo/collections/parametres/first")
-				.then(function(result) {return result.data;}, function(result) {alert("Erreur : " + result.status);});
+			return toolbox_http.get("/mongo/collections/parametres/first");
 		}
    }
 }]);

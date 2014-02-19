@@ -26,18 +26,6 @@ coursesApp.config(['$routeProvider',
       			})
 		}
 ])
-
-/** Méthode commune */
-var ajouterCourse = function() {
-		ajouterCourse($scope.formCourses, {
-			designation : $scope.formDesignation.designation, 
-			qte : $scope.formQte,
-			unite: $scope.formUnite.designation
-		})
-	$scope.formDesignation = "";
-	$scope.formQte = "";
-	$scope.formUnite = "";
-}
 /**
  * Contoleur de l'écran de saisie de liste
  * @utilise le service creerListe
@@ -61,6 +49,9 @@ modControleurs.controller("CreationListeCtrl", ["$scope", "ComposantParametres",
 		}
 	);
   	/**
+  	 * Ajoute un course à la liste
+  	 */
+  	  	/**
   	 * Ajoute un course à la liste
   	 */
   	$scope.addCourse = function() {
