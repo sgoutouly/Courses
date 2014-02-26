@@ -44,7 +44,8 @@ public class GraphInteractionManagerActor extends UntypedActor {
     public static void create(final String username, WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) throws Exception {
         Logger.debug("GraphInteractionManager : connexion de " + username + " ...");    	
         String result = (String) Await.result(ask(interactionManager, new Create(username, in, out), 1000), Duration.create(1, SECONDS));
-        if(RESULT_OK.equals(result)) {	      
+        if(RESULT_OK.equals(result)) {	 
+            out.write(Json.newObject().put("coucou", "connecté !"));        
             // Gestion de la fermeture de la socket par le client
         	Logger.debug("GraphInteractionManager : connexion de " + username + " reussie !");    
             in.onClose( new Callback0() { public void invoke() { interactionManager.tell(new Quit(username, username), null); } } );
@@ -62,7 +63,8 @@ public class GraphInteractionManagerActor extends UntypedActor {
     public static void join(final String owner, final String username, WebSocket.In<JsonNode> in, WebSocket.Out<JsonNode> out) throws Exception {
         Logger.debug("GraphInteractionManager : " + username + " demande à rejoindre l'interaction cree par " + owner + " ...");    	
         String result = (String) Await.result(ask(interactionManager, new Join(username, owner, in, out), 1000), Duration.create(1, SECONDS));
-        if(RESULT_OK.equals(result)) {	      
+        if(RESULT_OK.equals(result)) {	 
+              
             // Gestion de la fermeture de la socket par le client
         	Logger.debug("GraphInteractionManager : connexion de " + username + " reussie !");    
             in.onClose( new Callback0() { public void invoke() { interactionManager.tell(new Quit(username, owner), null); } } );

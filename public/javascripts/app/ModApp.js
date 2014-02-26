@@ -4,10 +4,12 @@
 var coursesApp = angular.module("courses", [
 	"ngRoute", 
 	"ngAnimate", 
-  "ToolBox.services", 
+  	"ToolBox.services", 
 	"courses.errors", 
 	"courses.services", 
-	"courses.controleurs" 
+	"courses.controleurs",
+  	"chat.services",
+  	"chat.controleurs"
 ]);
 
 /**
@@ -15,13 +17,13 @@ var coursesApp = angular.module("courses", [
  * Les routes associées à des contrôleurs sont définies avec
  * les contrôleurs concernés
  */
-coursesApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/menu', {
-        templateUrl: 'partials/menu.html'
-      })
-  }]);
+// coursesApp.config(['$routeProvider',
+//   function($routeProvider) {
+//     $routeProvider.
+//       when('/menu', {
+//         templateUrl: 'partials/menu.html'
+//       })
+//   }]);
 
 
 

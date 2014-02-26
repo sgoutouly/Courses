@@ -14,7 +14,10 @@ DELETE	/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.delet
 GET		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.getInCollection(collectionName:String, docID:String)
 PUT		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.updateInCollection(collectionName:String, docID:String)
 
+#Temp réel
+GET		/chat/:username								controllers.Chat.graphStreamServer(username:String)
+
 # Authentication
-GET     /                             			controllers.Application.login()
+GET     /                             				controllers.Application.login()
 POST    /login                              		controllers.Application.authenticate()
 GET     /logout                             		controllers.Application.logout()
