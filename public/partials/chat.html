@@ -1,5 +1,14 @@
-<h1>Chat</h1>
-{{data}}
-
-<button class="button row mt1" ng-click="sendMessage('coucou')">Envoyer Coucou</button>
+<ul class="pa0">
+    <li class="item w100 animation-liste-fade-left" ng-repeat="message in messages">
+    	<div class="txtleft">
+	    	{{message.user}} :      
+	    	{{message.message}} 
+    	</div>
+    </li>
+</ul>
+<form name="form" class="css-form" novalidate>	
+	<label>Message : </label>
+	<textarea class="w100 input-text" ng-model="message" name="message" ng-keypress="sendMessage($event)"></textarea>
+</form>
+<button class="button row mt1"  ng-click="sendMessage()">Envoyer</button>
 <button class="button row mt1" ng-click="disconnect()">Déconnecter</button>

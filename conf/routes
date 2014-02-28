@@ -15,7 +15,7 @@ GET		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.getInCo
 PUT		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.updateInCollection(collectionName:String, docID:String)
 
 #Temp réel
-GET		/chat/:username								controllers.Chat.graphStreamServer(username:String)
+GET		/chat/										controllers.Chat.connect()
 
 # Authentication
 GET     /                             				controllers.Application.login()

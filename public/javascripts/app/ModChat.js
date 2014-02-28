@@ -14,7 +14,7 @@ modChatServices.factory("ComposantChat", ["$q", "$rootScope", function($q, $root
 
 	var ComposantChat = {};
     ComposantChat.connect = function() {
-    	socket = new WS("ws://localhost:9000/chat/sylvain");   
+    	socket = new WS("ws://" + location.host + "/chat/");   
 	};
 
 	/* 
@@ -25,7 +25,7 @@ modChatServices.factory("ComposantChat", ["$q", "$rootScope", function($q, $root
 	ComposantChat.onmessage = function (callback) {
       socket.onmessage = function (event) {  
         $rootScope.$apply(function () {
-          callback.apply(socket, [event.data]); // appel du callback en lui passant la socket comme contexte et les data en argment unique
+          callback.apply(socket, [JSON.parse(event.data)]); // appel du callback en lui passant la socket comme contexte et les data en argment unique
         })
       };
     };
@@ -36,7 +36,7 @@ modChatServices.factory("ComposantChat", ["$q", "$rootScope", function($q, $root
 	};
 
 	ComposantChat.send = function(message) {
-		socket.send(message);
+		socket.send(JSON.stringify(message));
 	};
 
    return ComposantChat;
@@ -55,15 +55,23 @@ var modChatControleurs = angular.module("chat.controleurs", []);
 modChatControleurs.controller("OpenChatCtrl", ["$scope", "ComposantChat", 
 	function($scope, ComposantChat){
 
+	$scope.message;
+	$scope.messages = [];
+
 	ComposantChat.connect();
 	ComposantChat.onmessage(
 		function(data) {
-		 	$scope.data = data;
+	 		$scope.messages.push(data);
 		}
 	);
 
-	$scope.sendMessage = function(message) {
-		ComposantChat.send(JSON.stringify({"text": message}));
+	$scope.sendMessage = function(event) {
+		if(event && event.keyCode !== 13) {return;} 
+		else {
+			if(event) {event.preventDefault();}
+			ComposantChat.send({"text": $scope.message});
+			$scope.message = "";
+		}
 	}
 
 	$scope.disconnect = function() {

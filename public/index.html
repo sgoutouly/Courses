@@ -10,6 +10,7 @@
 		<script type="text/javascript" charset="utf-8" src="javascripts/lib/angular-animate.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/lib/speedclick.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/lib/zepto.min.js"></script>
+
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModToolBoxServices.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModApp.js"></script>
 		<script type="text/javascript" charset="utf-8" src="javascripts/app/ModErrors.js"></script>
@@ -37,10 +38,19 @@
 				<img src="images/courses-logo-rond-sma.jpg" />
 			</div>
 			<ul class="mt2" ng-controller="MenuCtrl">
-				<li class="menu-item" ng-class="navClass('listesEnCours')"><a href="#/listesEnCours"><span>Les listes en cours</span></a></li>
-				<li class="menu-item" ng-class="navClass('creationListe')"><a href="#/creationListe"><span>Créer une liste vierge</span></a></li> 
+				<li class="menu-item" ng-class="navClass('listesEnCours')">
+					<a href="#/listesEnCours"><span>Les listes en cours</span></a>
 				</li>
-				<li class="menu-item" ng-class="navClass('deconnexion')"><a href="/logout"><span>Déconnexion</span></a></li> 
+				<li class="menu-item" ng-class="navClass('creationListe')">
+					<a href="#/creationListe"><span>Créer une liste vierge</span></a>
+				</li> 
+				<li class="menu-item" ng-class="navClass('openChat')">
+					<a href="#/openChat	"><span>Rejoindre le chat</span></a>
+				</li> 
+				</li>
+				<li class="menu-item" ng-class="navClass('deconnexion')">
+					<a href="/logout"><span>Déconnexion</span></a>
+				</li> 
 			</ul>
 		</div>
 	</div>
