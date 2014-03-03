@@ -56,18 +56,20 @@ toolBoxDirectives.directive('tbMenuLeft', function() {
 
     return {
     	link : function($scope, $element, attrs) {
-
 			var menuWidth = $element.prop("offsetWidth"), 
 				initialMouseX = 0, 
 				clientX = 0;
 
+			// Initialisation des élément du DOM
 	    	bouton = document.getElementById('menuBouton');
- 			angular.element(bouton).on('click', toggleMenu);  	
+ 			if(bouton) {angular.element(bouton).on('click', toggleMenu);}	
 	    	$element.on("touchstart", startDragMenu);
 	    	$element.on("click", hideMenu);
-	    	$shadow = angular.element(document.getElementById('shadow'));
+	    	$shadow = angular.element("<div class='menu-shadow'></div>");
 	    	$shadow.on('click', hideMenu); 
+	    	$element.parent().append($shadow);
 
+	    	/* Au démarrage du glissé */
 			function startDragMenu(e) {
 				$element.removeClass("animate");
 				initialMouseX = getMousePosition(e).X;		
@@ -78,6 +80,7 @@ toolBoxDirectives.directive('tbMenuLeft', function() {
 				}
 			}
 
+			/* Pendant le glissé */
 			function dragMenu(e) {
 				e.stopImmediatePropagation();
 				e.preventDefault();
@@ -94,9 +97,7 @@ toolBoxDirectives.directive('tbMenuLeft', function() {
 
 			}
 			
-			/**
-			 * Fin du deplacement
-			 */
+			/* Fin du glissé */
 			function releaseMenu(e) {
 				// On calcule la position relative
 				var position = clientX + initialleft - initialMouseX ;
@@ -115,19 +116,13 @@ toolBoxDirectives.directive('tbMenuLeft', function() {
 			/* bascule de ouvert vers fermé et vice-versa */
 			function toggleMenu(e) {
 				e.preventDefault();
-				//if (!ignoreClick) {
-					$element.addClass("animate");
-					$element.toggleClass("show");
-					$shadow.toggleClass("show");
-				/*} else {
-					ignoreClick = false;
-				}*/
+				$element.addClass("animate");
+				$element.toggleClass("show");
+				$shadow.toggleClass("show");
 				reset();
 			}
 			
-			/**
-			 * Permet de cacher le menu
-			 */
+			/*  Permet de cacher le menu */
 			function hideMenu(e) {
 				$element.prop('style').webkitTransform = "";
 				$element.addClass("animate");
@@ -136,9 +131,7 @@ toolBoxDirectives.directive('tbMenuLeft', function() {
 				reset();
 			}
 
-			/**
-			 * Permet de recuperer la position de la souris par rappor a l'evenement
-			 */
+			/* Permet de recuperer la position de la souris par rappor a l'evenement */
 			function getMousePosition(e) {
 				var position = {};
 				var evt = e || window.event;
@@ -158,9 +151,7 @@ toolBoxDirectives.directive('tbMenuLeft', function() {
 				return position;
 			}
 
-			/**
-			 * Reset la gestion des evenements du menu
-			 */
+			/* Reset la gestion des evenements du menu  */
 			function reset() {
 				$element.off("touchmove");
 				$element.off("touchend");
