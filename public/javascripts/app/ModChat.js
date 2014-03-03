@@ -55,9 +55,11 @@ var modChatControleurs = angular.module("chat.controleurs", []);
 modChatControleurs.controller("OpenChatCtrl", ["$scope", "ComposantChat", 
 	function($scope, ComposantChat){
 
+	// Elements du scope
 	$scope.message;
 	$scope.messages = [];
 
+	// intialisation
 	ComposantChat.connect();
 	ComposantChat.onmessage(
 		function(data) {
@@ -65,38 +67,20 @@ modChatControleurs.controller("OpenChatCtrl", ["$scope", "ComposantChat",
 		}
 	);
 
+	// Méthode d'envoi d'un message par evenement clavier ou click
 	$scope.sendMessage = function(event) {
-		if(event && event.keyCode !== 13) {return;} 
+		if (event && event.keyCode !== 13) {return;} 
 		else {
-			if(event) {event.preventDefault();}
+			if (event) {event.preventDefault();}
 			ComposantChat.send({"text": $scope.message});
 			$scope.message = "";
 		}
 	}
 
+	// méthode de deconnexion
 	$scope.disconnect = function() {
 		ComposantChat.disconnect();
 	}
-
-}]);
-
-/**
- * Contrôleur de l'écran permettant de rejoindre un chat
- * @utilise le service ...
- */
-modChatControleurs.controller("JoinChatCtrl", ["$scope", "ComposantChat", 
-	function($scope, ComposantChat){
-	
-	/* Enrichissement du scope */
-	$scope.formListeId = $routeParams.listeId;
-	$scope.messageWait = "Chargement des données ...";
-
-	ComposantChat.consulterListe($scope.formListeId).then(
-		function(data) {
-			$scope.dateRedaction = data.dateRedaction;
-			$scope.formCourses = data.courses;
-		}
-	);	 	
 
 }]);
 
@@ -104,15 +88,11 @@ modChatControleurs.controller("JoinChatCtrl", ["$scope", "ComposantChat",
  * Routage de ces contrôleurs
  */	
 coursesApp.config(['$routeProvider',
-		function($routeProvider) {
-			$routeProvider.
-  				when('/openChat', {
-    				templateUrl: 'partials/chat.html',
-    				controller: 'OpenChatCtrl'
-  				}).
-  				when('/joinChat', {
-    				templateUrl: 'partials/chat.html',
-    				controller: 'JoinChatCtrl'
-  				})
-		}
+	function($routeProvider) {
+		$routeProvider.
+			when('/openChat', {
+				templateUrl: 'partials/chat.html',
+				controller: 'OpenChatCtrl'
+			})	
+	}
 ])
