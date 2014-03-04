@@ -13,7 +13,6 @@ import play.mvc.Controller;
  * @author SGY
  * @version 1.0
  * @date 7 nov. 2013
- * @copyright La Poste 2013
  */
 public class ETagHelper {
 

@@ -13,7 +13,6 @@ import com.mongodb.MongoClient;
  * @author SGY
  * @version 1.0
  * @date 5 déc. 2013 
- * @copyright La Poste 2013
  */
 public class MongoClientHolder {
 	
