@@ -101,16 +101,15 @@ toolBoxDirectives.directive('tbMenuLeft', function() {
 			function releaseMenu(e) {
 				// On calcule la position relative
 				var position = clientX + initialleft - initialMouseX ;
-				$element.addClass("animate");
-				$element.prop('style').webkitTransform = "";
 				if (position > Math.round(menuWidth / 2) * -1) {
+					$element.prop('style').webkitTransform = "";
+					$element.addClass("animate");
 					$element.addClass("show");
 			        $shadow.addClass("show");
+			        reset();
 				} else {
-					$element.removeClass("show");
-			        $shadow.removeClass("show");
+					hideMenu(e);
 				}
-				reset();
 			}
 			
 			/* bascule de ouvert vers fermé et vice-versa */
@@ -131,6 +130,12 @@ toolBoxDirectives.directive('tbMenuLeft', function() {
 				reset();
 			}
 
+			/* Reset la gestion des evenements du menu  */
+			function reset() {
+				$element.off("touchmove");
+				$element.off("touchend");
+			}
+
 			/* Permet de recuperer la position de la souris par rappor a l'evenement */
 			function getMousePosition(e) {
 				var position = {};
@@ -149,12 +154,6 @@ toolBoxDirectives.directive('tbMenuLeft', function() {
 					position.Y = evt.clientX;
 				}
 				return position;
-			}
-
-			/* Reset la gestion des evenements du menu  */
-			function reset() {
-				$element.off("touchmove");
-				$element.off("touchend");
 			}
 
 	    }
