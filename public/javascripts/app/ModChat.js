@@ -14,7 +14,7 @@ modChatServices.factory("ComposantChat", ["$q", "$rootScope", function($q, $root
 
 	var ComposantChat = {};
     ComposantChat.connect = function() {
-    	socket = new WS("ws://" + location.host + "/chat/");   
+    	socket = new WS("ws://" + location.host + jsRoutes.controllers.Chat.connect().url);
 	};
 
 	/* 
@@ -42,7 +42,6 @@ modChatServices.factory("ComposantChat", ["$q", "$rootScope", function($q, $root
    return ComposantChat;
 }]);
 
-
 /**
  * Module contenant les controleurs de Chat
  */
@@ -58,12 +57,14 @@ modChatControleurs.controller("OpenChatCtrl", ["$scope", "ComposantChat",
 	// Elements du scope
 	$scope.message;
 	$scope.messages = [];
+	$scope.members = [];
 
 	// intialisation
 	ComposantChat.connect();
 	ComposantChat.onmessage(
 		function(data) {
 	 		$scope.messages.push(data);
+	 		$scope.members = data.members;
 		}
 	);
 

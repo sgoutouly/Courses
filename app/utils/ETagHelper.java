@@ -44,8 +44,8 @@ public class ETagHelper {
 	 */
 	public static String getMd5Digest(byte[] bytes) {
 		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] messageDigest = md.digest(bytes);
+			final MessageDigest md = MessageDigest.getInstance("MD5");
+			final byte[] messageDigest = md.digest(bytes);
 			final BigInteger number = new BigInteger(1, messageDigest);
 			// prepend a zero to get a "proper" MD5 hash value
 			final StringBuffer sb = new StringBuffer('0');
@@ -58,22 +58,4 @@ public class ETagHelper {
 
 	}
 
-	/**
-	 * longToBytes
-	 * 
-	 * @param l
-	 * @return
-	 */
-	public static byte[] longToBytes(long l) {
-		ArrayList<Byte> bytes = new ArrayList<Byte>();
-		while (l != 0) {
-			bytes.add((byte) (l % (0xff + 1)));
-			l = l >> 8;
-		}
-		byte[] bytesp = new byte[bytes.size()];
-		for (int i = bytes.size() - 1, j = 0; i >= 0; i--, j++) {
-			bytesp[j] = bytes.get(i);
-		}
-		return bytesp;
-	}
 }

@@ -10,11 +10,11 @@ var modServices = angular.module("courses.services", []);
 modServices.factory("ComposantListe", ["$q", "toolbox_http", function($q, toolbox_http) {
    return {
 		consulterListe: function(id) {
-			return toolbox_http.get("/mongo/collections/listes/" + id);
+			return toolbox_http.get(jsRoutes.controllers.MongoExplorer.getInCollection('listes', id).url);
 		}
-		,   	
+		,
 		rechercherListe: function() {
-			return toolbox_http.get("/mongo/collections/listes");
+			return toolbox_http.get(jsRoutes.controllers.MongoExplorer.collection('listes').url);
 		}
 		,
 		copierListe: function(id) {	
@@ -29,15 +29,15 @@ modServices.factory("ComposantListe", ["$q", "toolbox_http", function($q, toolbo
 		}
 		,
 		creerListe: function(params) {
-			return toolbox_http("/mongo/collections/listes", params);
+			return toolbox_http.post(jsRoutes.controllers.MongoExplorer.create('listes').url, params);
 		}
 		,
 		modifierListe: function(id, params) {
-			return toolbox_http.put("/mongo/collections/listes/" + id, params);
+			return toolbox_http.put(jsRoutes.controllers.MongoExplorer.updateInCollection('listes', id).url, params);
 		}		
 		,
 		supprimerListe: function(id) {
-			return toolbox_http.delete("/mongo/collections/listes/" + id);
+			return toolbox_http.delete(jsRoutes.controllers.MongoExplorer.delete('listes', id).url);
 		}
    }
 }]);
@@ -58,7 +58,7 @@ modServices.factory("ajouterCourse", function() {
 modServices.factory("ComposantParametres", ["$q", "toolbox_http", function($q, toolbox_http) {
    return {
 		lire: function() {
-			return toolbox_http.get("/mongo/collections/parametres/first");
+			return toolbox_http.get(jsRoutes.controllers.MongoExplorer.firstInCollection('parametres').url);
 		}
    }
 }]);

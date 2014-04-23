@@ -1,12 +1,14 @@
 package controllers;
 
 import java.util.*;
-import play.*;
+
+import play.Routes;
+import play.libs.F;
+import play.libs.WS;
 import play.mvc.*;
 import play.data.*;
 import static play.data.Form.*;
-
-import models.*;
+import controllers.routes;
 import views.html.*;
 
 public class Application extends Controller {
@@ -16,10 +18,9 @@ public class Application extends Controller {
         users.put("sylvain", "sylvain");
         users.put("christine", "christine");
     }
-  
+
     // -- Authentication
     public static class Login {
-        
         public String email;
         public String password;
         
@@ -35,9 +36,7 @@ public class Application extends Controller {
      * Login page.
      */
     public static Result login() {
-        return ok(
-            login.render(form(Login.class))
-        );
+        return ok(login.render(form(Login.class)));
     }
     
     /**
@@ -49,11 +48,21 @@ public class Application extends Controller {
             return badRequest(login.render(loginForm));
         } else {
             session("email", loginForm.get().email);
-            return redirect(
-                routes.Assets.at("index.html#/listesEnCours")
-            );
+            return redirect(routes.Assets.at("index.html#/listesEnCours"));
+
         }
     }
+/*
+    public static F.Promise<Result> reactiveComposition() {
+        
+
+        final F.Promise<WS.Response> twitterPromise = WS.url("http://www.twitter.com").get();
+        final F.Promise<WS.Response> typesafePromise = WS.url("http://www.typesafe.com").get();
+
+        return twitterPromise.flatMap((twitter) ->
+                typesafePromise.map((typesafe) ->
+                        ok(twitter.getBody() + typesafe.getBody())));
+    }*/
 
     /**
      * Logout and clean the session.
@@ -61,9 +70,25 @@ public class Application extends Controller {
     public static Result logout() {
         session().clear();
         flash("success", "Vous avez été déconnecté !");
-        return redirect(
-            routes.Application.login()
-        );
+        return redirect(routes.Application.login());
+    }
+
+    // -- Javascript routing
+    public static Result javascriptRoutes() {
+        response().setContentType("text/javascript");
+        return ok(
+            Routes.javascriptRouter("jsRoutes",
+                // Routes for Chat
+                controllers.routes.javascript.Chat.connect(),
+                // Routes for Mongo
+                controllers.routes.javascript.MongoExplorer.collection(),
+                controllers.routes.javascript.MongoExplorer.create(),
+                controllers.routes.javascript.MongoExplorer.delete(),
+                controllers.routes.javascript.MongoExplorer.getInCollection(),
+                controllers.routes.javascript.MongoExplorer.updateInCollection(),
+                controllers.routes.javascript.MongoExplorer.firstInCollection()
+                )
+            );
     }
 
 }

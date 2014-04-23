@@ -1,3 +1,11 @@
+
+<span>Utilisateurs connectés : </span>
+<ul class="pa0">
+    <li class="item w100 animation-liste-fade-left" ng-repeat="member in members">
+    	<div class="txtleft">{{member}}</div>
+    </li>
+</ul>
+<span>Messages :</span>
 <ul class="pa0">
     <li class="item w100 animation-liste-fade-left" ng-repeat="message in messages">
     	<div class="txtleft">
@@ -7,7 +15,7 @@
     </li>
 </ul>
 <form name="form" class="css-form" novalidate>	
-	<label>Message : </label>
+	<label>Ecrire : </label>
 	<textarea class="w100 input-text" ng-model="message" name="message" ng-keypress="sendMessage($event)"></textarea>
 </form>
 <button class="button row mt1"  ng-click="sendMessage()">Envoyer</button>

@@ -1,23 +1,23 @@
-<form name="form" class="css-form" novalidate>	
-	<span class="mb1 txtleft item row">Liste créée le {{dateRedaction | date:'dd/MM/yyyy'}}</span>	
-	<label>Désignation : </label>
-	<select class="select row" ng-model="formDesignation" name="designation" ng-options="p.designation group by p.categorie for p in paramListeProduits" required></select>	
-	<label>Quantité : </label>
-	<input type="text" name="qte" class="input-text w30" ng-model="formQte" required />
+<form name="form" class="css-form" novalidate>  
+    <span class="mb1 txtleft item row">Liste créée le {{dateRedaction | date:'dd/MM/yyyy'}}</span>  
+    <label>Désignation : </label>
+    <select class="select row" ng-model="formDesignation" name="designation" ng-options="p.designation group by p.categorie for p in paramListeProduits" required></select> 
+    <label>Quantité : </label>
+    <input type="text" name="qte" class="input-text w30" ng-model="formQte" required />
     <label>Unité : </label>
     <select class="select w30 right" ng-model="formUnite" name="unite" ng-options="u.designation for u in paramListeUnites" required></select>
-	<button class="button row icon icon-down mt1" ng-disabled="form.$invalid" ng-click="addCourse()">Ajouter cette course</button>
+    <button class="button row icon icon-down mt1" ng-disabled="form.$invalid" ng-click="addCourse()">Ajouter cette course</button>
 </form>
 <p class="txtcenter wait" ng-show="messageWait !== ''">{{messageWait}}</p>
 <ul class="pa0">
     <li class="item w100 animation-liste-fade-left" ng-repeat="course in formCourses" ng-class-odd="'odd'">
-    	<div class="txtleft">
+        <div class="txtleft">
             <span> {{course.designation}}</span><span class="pls">({{course.qte}})</span><span class="pls">({{course.unite}})</span>
             <button class="icon-cross right" ng-click="deleteCourse($index)"></button>
-    	</div>
+        </div>
     </li>
 </ul>
 <div class="txtcenter">
-    <button class="button w50 left mt1 icon icon-check" ng-disabled="formCourses.length == 0" ng-click="saveListe()">Enregistrer la liste</button>
+    <button class="button w49 left mt1 icon icon-check" ng-disabled="formCourses.length == 0" ng-click="saveListe()">Enregistrer la liste</button>
     <button class="button w49 right mt1 icon icon-uncheck" ng-click="goHome()">Annuler</button>
-</div>	
+</div>

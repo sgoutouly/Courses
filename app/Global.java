@@ -15,11 +15,11 @@ public class Global extends GlobalSettings {
 
     /** 
      * onStop
-     * @param app
+ * @param app
      * @see play.GlobalSettings#onStop(play.Application)
      */
     public void onStop(Application app) {
-    	
+
     	Logger.info("------------------------------------------------------------");
     	Logger.info("Arrêt de l'application");
         Logger.info("------------------------------------------------------------");

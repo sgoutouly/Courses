@@ -2,9 +2,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               				controllers.Assets.at(path="/public", file)
-
 # Services Mongo
 GET		/mongo/collections							controllers.MongoExplorer.collections()
 GET		/mongo/collections/:collectionName			controllers.MongoExplorer.collection(collectionName:String)
@@ -21,3 +18,11 @@ GET		/chat/										controllers.Chat.connect()
 GET     /                             				controllers.Application.login()
 POST    /login                              		controllers.Application.authenticate()
 GET     /logout                             		controllers.Application.logout()
+
+#GET     /reactive-composition          			controllers.Application.reactiveComposition()
+
+# Javascript routing
+GET     /assets/javascripts/routes                  controllers.Application.javascriptRoutes()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               				controllers.Assets.at(path="/public", file)

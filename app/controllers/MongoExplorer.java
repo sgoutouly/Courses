@@ -23,12 +23,13 @@ import com.mongodb.util.JSON;
  * @date 31 oct. 2013
  */
 @Security.Authenticated(Secured.class)
+
 public class MongoExplorer extends Controller {
 
 	/* Traitement ETAG */
 	private static Result etag(String doc) {
 		final String eTag = ETagHelper.getMd5Digest(doc.getBytes());
-		if (eTag.equals(request().getHeader(IF_NONE_MATCH))) {
+		if (eTag != null && eTag.equals(request().getHeader(IF_NONE_MATCH))) {
 			return status(NOT_MODIFIED);
 		}
 		else {
@@ -46,12 +47,12 @@ public class MongoExplorer extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result create(String collectionName) {
 		try {
-			DB db = MongoClientHolder.getInstance().getDB();
+			final DB db = MongoClientHolder.getInstance().getDB();
 			if (!db.collectionExists(collectionName)) {
 				return notFound("Collection introuvable");
 			}
-			DBCollection collection = db.getCollection(collectionName);
-			DBObject docMongo = (DBObject) JSON.parse(request().body().asJson().toString());
+			final DBCollection collection = db.getCollection(collectionName);
+			final DBObject docMongo = (DBObject) JSON.parse(request().body().asJson().toString());
 			docMongo.put("_id", new ObjectId()); // On calcule l'id à l'avance pour le renvoyer dans les headers de la reponse
 			collection.insert(docMongo);
 			response().setHeader(LOCATION, "/mongo/collections/listes/" + docMongo.get("_id").toString());
@@ -70,12 +71,12 @@ public class MongoExplorer extends Controller {
 	 */
 	public static Result getInCollection(String collectionName, String docID) {
 		try {
-			DB db = MongoClientHolder.getInstance().getDB();
+			final DB db = MongoClientHolder.getInstance().getDB();
 			if (!db.collectionExists(collectionName)) {
 				return notFound("Collection introuvable");
 			}
-			DBCollection collection = db.getCollection(collectionName);
-			DBObject doc = collection.findOne(new BasicDBObject("_id", new ObjectId(docID)));
+			final DBCollection collection = db.getCollection(collectionName);
+			final DBObject doc = collection.findOne(new BasicDBObject("_id", new ObjectId(docID)));
 			if (doc == null) {
 				return notFound("Document introuvable");
 			}
@@ -94,12 +95,12 @@ public class MongoExplorer extends Controller {
 	 */
 	public static Result updateInCollection(String collectionName, String docID) {
 		try {
-			DB db = MongoClientHolder.getInstance().getDB();
+			final DB db = MongoClientHolder.getInstance().getDB();
 			if (!db.collectionExists(collectionName)) {
 				return notFound("Collection introuvable");
 			}
-			DBCollection collection = db.getCollection(collectionName);
-			WriteResult wr = collection.update(
+			final DBCollection collection = db.getCollection(collectionName);
+			final WriteResult wr = collection.update(
 				new BasicDBObject("_id", new ObjectId(docID)), 
 				(DBObject) JSON.parse(request().body().asJson().toString())
 			);
@@ -123,12 +124,12 @@ public class MongoExplorer extends Controller {
 	 */
 	public static Result delete(String collectionName, String docID) {
 		try {
-			DB db = MongoClientHolder.getInstance().getDB();
+			final DB db = MongoClientHolder.getInstance().getDB();
 			if (!db.collectionExists(collectionName)) {
 				return notFound("Collection introuvable");
 			}
-			DBCollection collection = db.getCollection(collectionName);
-			WriteResult wr = collection.remove(new BasicDBObject("_id", new ObjectId(docID)));
+			final DBCollection collection = db.getCollection(collectionName);
+			final WriteResult wr = collection.remove(new BasicDBObject("_id", new ObjectId(docID)));
 			if (wr.getN() == 0) {
 				return notFound("Document introuvable");
 			}
@@ -148,12 +149,12 @@ public class MongoExplorer extends Controller {
 	 */
 	public static Result firstInCollection(String collectionName) {
 		try {
-			DB db = MongoClientHolder.getInstance().getDB();
+			final DB db = MongoClientHolder.getInstance().getDB();
 			if (!db.collectionExists(collectionName)) {
 				return notFound("Collection introuvable");
 			}
-			DBCollection collection = db.getCollection(collectionName);
-			DBObject doc = collection.findOne();
+			final DBCollection collection = db.getCollection(collectionName);
+			final DBObject doc = collection.findOne();
 			if (doc == null) {
 				return notFound("Document introuvable");
 			}
@@ -177,10 +178,10 @@ public class MongoExplorer extends Controller {
 			if (!db.collectionExists(collectionName)) {
 				return notFound("Collection introuvable");
 			}
-			DBCollection collection = db.getCollection(collectionName);
+			final DBCollection collection = db.getCollection(collectionName);
 			if (collection.count() > 0) {
-				DBCursor cursor = collection.find();
-				StringBuffer sb = new StringBuffer("["); 
+				final DBCursor cursor = collection.find();
+				final StringBuffer sb = new StringBuffer("["); 
 				int i = 0;
 				while (cursor.hasNext()) {
 					i ++;
@@ -209,9 +210,9 @@ public class MongoExplorer extends Controller {
 	 */
 	public static Result collections() {
 		try {
-			DB db = MongoClientHolder.getInstance().getDB();
-			Set<String> collections = db.getCollectionNames();
-			JsonNode json = Json.toJson(collections);
+			final DB db = MongoClientHolder.getInstance().getDB();
+			final Set<String> collections = db.getCollectionNames();
+			final JsonNode json = Json.toJson(collections);
 			return ok(json);
 		}
 		catch (Exception e) {

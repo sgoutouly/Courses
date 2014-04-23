@@ -23,8 +23,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /** 
- * GraphInteraction
- *
+ * Acteur gérant la ChatRoom
  */
 public class ChatRoom extends UntypedActor {
 
@@ -48,20 +47,8 @@ public class ChatRoom extends UntypedActor {
         );
         if(RESULT_OK.equals(result)) {   
             // Gestion de la fermeture de la socket par le client
-            in.onMessage(
-                new Callback<JsonNode>() {
-                    public void invoke(JsonNode event) {                
-                        defaultRoom.tell(new Talk(username, event.get("text").asText()), null);
-                    } 
-                }
-            );
-            in.onClose( 
-                new Callback0() { 
-                    public void invoke() { 
-                        defaultRoom.tell(new Quit(username), null); 
-                    } 
-                } 
-            );
+            in.onMessage(event -> defaultRoom.tell(new Talk(username, event.get("text").asText()), null));
+            in.onClose(() -> defaultRoom.tell(new Quit(username), null));
         } 
         else {
             // La connexion à l'interaction a échoué, on renvoi un flux d'erreur sur la socket de l'utilisateur
@@ -80,12 +67,12 @@ public class ChatRoom extends UntypedActor {
        	if(message instanceof Join) {            
     		final Join join = (Join) message;     
             members.put(join.username, join.channel);
-            notifyAll("talk", join.username, "vient de rejoindre la discussion", true);
+            notifyAll("talk", "ChatRoom", join.username + " vient de rejoindre la discussion", false);
             getSender().tell(RESULT_OK, getSelf());
         } 
         else if(message instanceof Talk)  {
             Talk talk = (Talk) message;
-            notifyAll("talk", talk.username, talk.text);
+            notifyAll("talk", talk.username, talk.text, true);
         } 
         else if(message instanceof Quit)  {
         	Quit quit = (Quit) message;
@@ -106,38 +93,27 @@ public class ChatRoom extends UntypedActor {
      * @param excludeSender L'envoyeur est'il exclu de la notification ?
      */
     public void notifyAll(String kind, String user, String text, boolean excludeSender) {
-
         java.util.Iterator<String> it = members.keySet().iterator();
 
         while(it.hasNext()) {
             String userTo = it.next();
-            if (excludeSender && user.equals(userTo)) {
-                continue;
-            }
-            
-            ObjectNode event = Json.newObject();
-            event.put("kind", kind);
-            event.put("user", user);
-            event.put("message", text);
+            if (excludeSender && user.equals(userTo)) { continue; }
+            ObjectNode event = Json.newObject().put("kind", kind).put("user", user.toUpperCase())
+                    .put("message", text);
             ArrayNode m = event.putArray("members");
             for(String u: members.keySet()) {
                 m.add(u);
             }
-
             members.get(userTo).write(event);
         }
     }
 
-        /**
+    /**
      * notifyAll
-     * @param kind
-     * @param user
-     * @param text
      */
     public void notifyAll(String kind, String user, String text) {
         notifyAll(kind, user, text, false);
     }
-    
     
     // -- Messages
     /**
@@ -173,7 +149,6 @@ public class ChatRoom extends UntypedActor {
      */
     public static class Quit {        
         final String username;
-        
         public Quit(String username) {
             this.username = username;
         }        

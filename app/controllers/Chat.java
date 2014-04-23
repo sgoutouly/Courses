@@ -19,18 +19,16 @@ public class Chat extends Controller {
 	 * @param graphIds
 	 * @return WebSocket<JsonNode>
 	 */
-	public static WebSocket<JsonNode> connect() {
-		final String username = session().get("email");
-		return new WebSocket<JsonNode>() {
-			public void onReady(final WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
-                try { 
-                	ChatRoom.join(username, in, out);
-                } 
-                catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-			}			
-		};
-	}
+    public static WebSocket<JsonNode> connect() {
+        final String username = session().get("email");
+        return new WebSocket<JsonNode>() {
+            public void onReady(final WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
+            try {
+                ChatRoom.join(username, in, out);
+            }
+            catch (Exception ex) { ex.printStackTrace(); }
+            }
+        };
+    }
 
 }
