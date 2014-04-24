@@ -25,7 +25,7 @@ module.exports = function(grunt) {
     copy: {
       all: {
         files: [
-          {expand: true, src: ['client/**'], dest: 'target'}
+          {expand: true, src: ['client/**'], dest: '/Volumes/60GO (C)/play-2.2.1/Courses/public'}
         ]
       }
     }
