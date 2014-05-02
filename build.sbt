@@ -8,7 +8,8 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 libraryDependencies ++= Seq(
   cache,
-  "org.mongodb" % "mongo-java-driver" % "2.11.3"
+  "org.mongodb" % "mongo-java-driver" % "2.11.3",
+  "uk.co.panaxiom" %% "play-jongo" % "0.6.0-jongo1.0"
 )     
 
 playJavaSettings

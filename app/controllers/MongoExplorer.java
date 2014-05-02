@@ -33,6 +33,7 @@ public class MongoExplorer extends Controller {
 			return status(NOT_MODIFIED);
 		}
 		else {
+            response().setHeader(CONTENT_TYPE, "application/json");
 			response().setHeader(ETAG, eTag);
 			return ok(doc);	
 		}

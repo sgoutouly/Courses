@@ -46,23 +46,12 @@ public class Application extends Controller {
         Form<Login> loginForm = form(Login.class).bindFromRequest();
         if(loginForm.hasErrors()) {
             return badRequest(login.render(loginForm));
-        } else {
+        }
+        else {
             session("email", loginForm.get().email);
             return redirect(routes.Assets.at("index.html#/listesEnCours"));
-
         }
     }
-/*
-    public static F.Promise<Result> reactiveComposition() {
-        
-
-        final F.Promise<WS.Response> twitterPromise = WS.url("http://www.twitter.com").get();
-        final F.Promise<WS.Response> typesafePromise = WS.url("http://www.typesafe.com").get();
-
-        return twitterPromise.flatMap((twitter) ->
-                typesafePromise.map((typesafe) ->
-                        ok(twitter.getBody() + typesafe.getBody())));
-    }*/
 
     /**
      * Logout and clean the session.
@@ -81,14 +70,27 @@ public class Application extends Controller {
                 // Routes for Chat
                 controllers.routes.javascript.Chat.connect(),
                 // Routes for Mongo
-                controllers.routes.javascript.MongoExplorer.collection(),
-                controllers.routes.javascript.MongoExplorer.create(),
-                controllers.routes.javascript.MongoExplorer.delete(),
-                controllers.routes.javascript.MongoExplorer.getInCollection(),
-                controllers.routes.javascript.MongoExplorer.updateInCollection(),
-                controllers.routes.javascript.MongoExplorer.firstInCollection()
-                )
-            );
+                controllers.routes.javascript.MongoExplorer.firstInCollection(),
+                // Routes for Listes over Jongo
+                controllers.routes.javascript.Listes.listes(),
+                controllers.routes.javascript.Listes.liste(),
+                controllers.routes.javascript.Listes.add(),
+                controllers.routes.javascript.Listes.delete(),
+                controllers.routes.javascript.Listes.update()
+            )
+        );
     }
+
+    /*
+    public static F.Promise<Result> reactiveComposition() {
+
+
+        final F.Promise<WS.Response> twitterPromise = WS.url("http://www.twitter.com").get();
+        final F.Promise<WS.Response> typesafePromise = WS.url("http://www.typesafe.com").get();
+
+        return twitterPromise.flatMap((twitter) ->
+                typesafePromise.map((typesafe) ->
+                        ok(twitter.getBody() + typesafe.getBody())));
+    }*/
 
 }

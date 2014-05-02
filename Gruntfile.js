@@ -22,19 +22,11 @@ module.exports = function(grunt) {
       }
     },
 
-    copy: {
-      all: {
-        files: [
-          {expand: true, src: ['client/**'], dest: '/Volumes/60GO (C)/play-2.2.1/Courses/public'}
-        ]
-      }
-    }
-
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-copy');
+
 
   grunt.registerTask('default', ['watch']);
 

@@ -179,7 +179,7 @@ modControleurs.controller("AffichageListesEnCoursCtrl", ["$scope", "ComposantLis
   	 */
 	$scope.deleteListe = function(indexListe) {
 		if (confirm("Etes-vous sûr de vouloir supprimer cette liste ?")) {
-			ComposantListe.supprimerListe($scope.listes[indexListe]._id.$oid).then( 
+			ComposantListe.supprimerListe($scope.listes[indexListe]._id).then(
 				function() {
 					$scope.listes.splice(indexListe, 1);
 				}
@@ -191,7 +191,7 @@ modControleurs.controller("AffichageListesEnCoursCtrl", ["$scope", "ComposantLis
   	 */
 	$scope.copyListe = function(indexListe) {
 		if (confirm("Etes-vous sûr de vouloir copier cette liste ?")) {
-			ComposantListe.copierListe($scope.listes[indexListe]._id.$oid).then( 
+			ComposantListe.copierListe($scope.listes[indexListe]._id).then(
 				function(data) {
 					$scope.listes.push(data);
 				}
@@ -202,7 +202,7 @@ modControleurs.controller("AffichageListesEnCoursCtrl", ["$scope", "ComposantLis
   	 *
   	 */
 	$scope.modifyListe = function(indexListe) {
-		location.hash="#/modificationListe/" + $scope.listes[indexListe]._id.$oid;
+		location.hash="#/modificationListe/" + $scope.listes[indexListe]._id;
 	}
 	/**
   	 * Retour au menu principal

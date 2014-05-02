@@ -10,11 +10,11 @@ var modServices = angular.module("courses.services", []);
 modServices.factory("ComposantListe", ["$q", "toolbox_http", function($q, toolbox_http) {
    return {
 		consulterListe: function(id) {
-			return toolbox_http.get(jsRoutes.controllers.MongoExplorer.getInCollection('listes', id).url);
+			return toolbox_http.get(jsRoutes.controllers.Listes.liste(id).url);
 		}
-		,
+	    ,
 		rechercherListe: function() {
-			return toolbox_http.get(jsRoutes.controllers.MongoExplorer.collection('listes').url);
+			return toolbox_http.get(jsRoutes.controllers.Listes.listes().url);
 		}
 		,
 		copierListe: function(id) {	
@@ -29,15 +29,15 @@ modServices.factory("ComposantListe", ["$q", "toolbox_http", function($q, toolbo
 		}
 		,
 		creerListe: function(params) {
-			return toolbox_http.post(jsRoutes.controllers.MongoExplorer.create('listes').url, params);
+			return toolbox_http.post(jsRoutes.controllers.Listes.add().url, params);
 		}
 		,
 		modifierListe: function(id, params) {
-			return toolbox_http.put(jsRoutes.controllers.MongoExplorer.updateInCollection('listes', id).url, params);
+			return toolbox_http.put(jsRoutes.controllers.Listes.update(id).url, params);
 		}		
 		,
 		supprimerListe: function(id) {
-			return toolbox_http.delete(jsRoutes.controllers.MongoExplorer.delete('listes', id).url);
+			return toolbox_http.delete(jsRoutes.controllers.Listes.delete(id).url);
 		}
    }
 }]);

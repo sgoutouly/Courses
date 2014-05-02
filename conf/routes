@@ -2,14 +2,12 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Services Mongo
-GET		/mongo/collections							controllers.MongoExplorer.collections()
-GET		/mongo/collections/:collectionName			controllers.MongoExplorer.collection(collectionName:String)
-GET		/mongo/collections/:collectionName/first    controllers.MongoExplorer.firstInCollection(collectionName:String)
-POST	/mongo/collections/:collectionName			controllers.MongoExplorer.create(collectionName:String)
-DELETE	/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.delete(collectionName:String, docID:String)
-GET		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.getInCollection(collectionName:String, docID:String)
-PUT		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.updateInCollection(collectionName:String, docID:String)
+# Services Jongo
+GET     /courses/listes/:docID                       controllers.Listes.liste(docID:String)
+GET     /courses/listes/                             controllers.Listes.listes()
+PUT     /courses/listes/:docID                       controllers.Listes.update(docID:String)
+POST    /courses/listes/                             controllers.Listes.add()
+DELETE  /courses/listes/:docID                       controllers.Listes.delete(docID:String)
 
 #Temp réel
 GET		/chat/										controllers.Chat.connect()
@@ -19,10 +17,19 @@ GET     /                             				controllers.Application.login()
 POST    /login                              		controllers.Application.authenticate()
 GET     /logout                             		controllers.Application.logout()
 
-#GET     /reactive-composition          			controllers.Application.reactiveComposition()
-
 # Javascript routing
 GET     /assets/javascripts/routes                  controllers.Application.javascriptRoutes()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               				controllers.Assets.at(path="/public", file)
+
+# Services Mongo
+GET		/mongo/collections							controllers.MongoExplorer.collections()
+GET		/mongo/collections/:collectionName			controllers.MongoExplorer.collection(collectionName:String)
+GET		/mongo/collections/:collectionName/first    controllers.MongoExplorer.firstInCollection(collectionName:String)
+POST	/mongo/collections/:collectionName			controllers.MongoExplorer.create(collectionName:String)
+DELETE	/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.delete(collectionName:String, docID:String)
+GET		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.getInCollection(collectionName:String, docID:String)
+PUT		/mongo/collections/:collectionName/:docID	controllers.MongoExplorer.updateInCollection(collectionName:String, docID:String)
+
+#GET     /reactive-composition          			controllers.Application.reactiveComposition()
