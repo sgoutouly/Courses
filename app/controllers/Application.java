@@ -67,16 +67,15 @@ public class Application extends Controller {
         response().setContentType("text/javascript");
         return ok(
             Routes.javascriptRouter("jsRoutes",
-                // Routes for Chat
-                controllers.routes.javascript.Chat.connect(),
-                // Routes for Mongo
-                controllers.routes.javascript.MongoExplorer.firstInCollection(),
-                // Routes for Listes over Jongo
-                controllers.routes.javascript.Listes.listes(),
-                controllers.routes.javascript.Listes.liste(),
-                controllers.routes.javascript.Listes.add(),
-                controllers.routes.javascript.Listes.delete(),
-                controllers.routes.javascript.Listes.update()
+                    // Routes for Chat
+                    controllers.routes.javascript.Chat.connect(),
+                    // Routes for Listes over Jongo
+                    controllers.routes.javascript.Listes.listes(),
+                    controllers.routes.javascript.Listes.liste(),
+                    controllers.routes.javascript.Listes.add(),
+                    controllers.routes.javascript.Listes.delete(),
+                    controllers.routes.javascript.Listes.update(),
+                    controllers.routes.javascript.Listes.parametres()
             )
         );
     }

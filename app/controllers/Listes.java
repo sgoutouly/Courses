@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.*;
 import com.mongodb.util.JSON;
 import models.Liste;
+import models.Parametre;
 import org.bson.types.ObjectId;
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -15,6 +16,8 @@ import utils.MongoClientHolder;
 
 import java.util.Set;
 
+import static play.libs.Json.*;
+
 /**
  * Contrôleur Play! de Gestion CRUD des listes basé sur un DAO Jongo
  * 
@@ -22,7 +25,6 @@ import java.util.Set;
  * @version 1.0
  * @date 31 oct. 2013
  */
-
 @Security.Authenticated(Secured.class)
 public class Listes extends Controller {
 
@@ -46,7 +48,7 @@ public class Listes extends Controller {
      */
     public static Result listes() {
         try {
-            return ok(Json.toJson(Liste.all()));
+            return ok(toJson(Liste.all()));
         }
         catch (Exception e) {
             return internalServerError(e.getMessage());
@@ -59,7 +61,7 @@ public class Listes extends Controller {
 	public static Result liste(String docID) {
 		try {
             final Liste liste = Liste.findById(docID);
-            return liste == null ? notFound("Document introuvable") : ok(Json.toJson(liste));
+            return liste == null ? notFound("Document introuvable") : ok(toJson(liste));
 		}
 		catch (Exception e) {
 			return internalServerError(e.getMessage());
@@ -92,30 +94,13 @@ public class Listes extends Controller {
 		}
 	}
 
-	/**
-	 * Récupération du premier document de la collection
-	 *
-	 * @param collectionName Le nom de la collection
-	 *
-	 * @return Result Le résultat du traitement
-	 */
-	public static Result firstInCollection(String collectionName) {
-		try {
-			final DB db = MongoClientHolder.getInstance().getDB();
-			if (!db.collectionExists(collectionName)) {
-				return notFound("Collection introuvable");
-			}
-			final DBCollection collection = db.getCollection(collectionName);
-			final DBObject doc = collection.findOne();
-			if (doc == null) {
-				return notFound("Document introuvable");
-			}
-			return etag(doc.toString());
-		}
-		catch (Exception e) {
-			return internalServerError(e.getMessage());
-		}
-	}
+    /**
+     * Renvoi les Parametres
+     */
+    public static Result parametres() {
+        final Parametre parametre = Parametre.findOne();
+        return parametre == null ? notFound("Paramètres introuvables") : ok(toJson(parametre));
+    }
 
     /* Traitement ETAG */
     private static Result etag(String doc) {
@@ -125,7 +110,7 @@ public class Listes extends Controller {
         }
         else {
             response().setHeader(ETAG, eTag);
-            return ok(Json.toJson(doc));
+            return ok(toJson(doc));
         }
     }
 

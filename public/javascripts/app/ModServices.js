@@ -58,7 +58,7 @@ modServices.factory("ajouterCourse", function() {
 modServices.factory("ComposantParametres", ["$q", "toolbox_http", function($q, toolbox_http) {
    return {
 		lire: function() {
-			return toolbox_http.get(jsRoutes.controllers.MongoExplorer.firstInCollection('parametres').url);
+			return toolbox_http.get(jsRoutes.controllers.Listes.parametres().url);
 		}
    }
 }]);

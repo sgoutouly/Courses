@@ -12,57 +12,35 @@ import java.util.List;
  * DAO Jongo des Listes
  */
 public class Parametre {
-
     @Id
     public ObjectId id;
+    public List<Produit> produits;
+    public List<Unite> unites;
 
     /** Comment convertir l'ID Mongo en String lors du marshalling ! */
     public String getId() {
         return this.id.toString();
     }
 
-    // Méthodes exposées directement par le DAO
+    //---- Méthodes exposées directement par le DAO
     public static Parametre findById(String id) {
-        return listes().findOne("{_id:#}", new ObjectId(id)).as(Parametre.class);
+        return parametres().findOne("{_id:#}", new ObjectId(id)).as(Parametre.class);
+    }
+    public static Parametre findOne() {
+        return parametres().findOne().as(Parametre.class);
     }
 
-    public static WriteResult updateById(String id, String modifier) {
-        return listes().update(new ObjectId(id)).with(modifier);
+    //---- Méthodes de commodité
+    private static MongoCollection parametres() {
+        return PlayJongo.getCollection("parametres");
     }
 
-    public static WriteResult insert(String modifier) {
-        return listes().insert(modifier);
+    // --- Modèle
+    public static class Produit {
+        public String designation;
+        public String categorie;
     }
-
-    public static String insertWithId(String modifier) {
-        ObjectId id = ObjectId.get();
-        listes().insert("{_id:#, " + modifier.substring(1), id);
-        return id.toString();
+    public static class Unite {
+        public String designation;
     }
-
-    public static WriteResult remove(String id) {
-        return listes().remove(new ObjectId(id));
-    }
-
-    public static Iterable<Parametre> all() {
-        return listes().find().as(Parametre.class);
-    }
-
-
-    // Méthodes exposées par un instance de Liste (non utilisées)
-    public WriteResult insert() {
-        return listes().save(this);
-    }
-    public WriteResult update(String modifier) {
-        return listes().update(this.id).with(modifier);
-    }
-    public void remove() {
-        listes().remove(this.id);
-    }
-
-    // Méthodes de commodité
-    private static MongoCollection listes() {
-        return PlayJongo.getCollection("listes");
-    }
-
 }
