@@ -18,6 +18,12 @@ GET     /                             				controllers.Application.login()
 POST    /login                              		controllers.Application.authenticate()
 GET     /logout                             		controllers.Application.logout()
 
+#Monitoring
+GET     /monitor 		                        	controllers.Monitor.index
+GET     /monitor/load   	                	    controllers.Monitor.load
+GET     /monitor/monitoring 	        	        controllers.Monitor.monitoring
+POST    /monitor/gc!            		            controllers.Monitor.gc
+
 # Javascript routing
 GET     /assets/javascripts/routes                  controllers.Application.javascriptRoutes()
 

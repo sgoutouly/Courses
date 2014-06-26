@@ -1,20 +1,13 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.*;
-import com.mongodb.util.JSON;
 import models.Liste;
 import models.Parametre;
-import org.bson.types.ObjectId;
-import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import utils.ETagHelper;
-import utils.MongoClientHolder;
-
-import java.util.Set;
 
 import static play.libs.Json.*;
 
@@ -51,6 +44,7 @@ public class Listes extends Controller {
             return ok(toJson(Liste.all()));
         }
         catch (Exception e) {
+            e.printStackTrace();
             return internalServerError(e.getMessage());
         }
     }
@@ -60,12 +54,18 @@ public class Listes extends Controller {
 	 */
 	public static Result liste(String docID) {
 		try {
-            final Liste liste = Liste.findById(docID);
-            return liste == null ? notFound("Document introuvable") : ok(toJson(liste));
+             //Liste liste = Liste.findById(docID);
+             final String liste = Liste.findByIdAsString(docID);
+             return liste == null ? notFound("Document introuvable") : okJson(liste);
 		}
 		catch (Exception e) {
 			return internalServerError(e.getMessage());
 		}
+    }
+
+    private static Result okJson(String json) {
+        response().setHeader(CONTENT_TYPE, "application/json");
+        return ok(json);
     }
 
 	/**

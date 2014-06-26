@@ -21,6 +21,7 @@ public class Application extends Controller {
 
     // -- Authentication
     public static class Login {
+
         public String email;
         public String password;
         
