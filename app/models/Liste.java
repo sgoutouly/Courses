@@ -36,7 +36,7 @@ public class Liste {
 
     }
 
-    public static WriteResult u pdateById(String id, String modifier) {
+    public static WriteResult updateById(String id, String modifier) {
         return listes().update(new ObjectId(id)).with(modifier);
     }
 
