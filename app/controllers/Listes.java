@@ -54,9 +54,9 @@ public class Listes extends Controller {
 	 */
 	public static Result liste(String docID) {
 		try {
-             //Liste liste = Liste.findById(docID);
-             final String liste = Liste.findByIdAsString(docID);
-             return liste == null ? notFound("Document introuvable") : okJson(liste);
+             final Liste liste = Liste.findById(docID);
+             //final String liste = Liste.findByIdAsString(docID);
+             return liste == null ? notFound("Document introuvable") : ok(toJson(liste));
 		}
 		catch (Exception e) {
 			return internalServerError(e.getMessage());

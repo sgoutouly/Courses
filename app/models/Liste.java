@@ -19,18 +19,21 @@ public class Liste {
 
     @JsonSerialize(using = utils.ObjectIdSerializer.class)
     @JsonDeserialize(using = ObjectIdDeserializer.class)
-    public String _id; 
+    public String _id;
     public String dateRedaction;
     public String dateCourse;
     public List<Course> courses;
 
 
     // Méthodes exposées directement par le DAO
+
+    // Conversion Auto en Objet (moins peformant car inutile l'objectif étant d'envoyer du JSON)
+    // Néanmoins serialization de l'Id de l'objet est mieux maîtrisée (pas de $oid avec un serializer custom)
     public static Liste findById(String id) {
         return listes().findOne("{_id:#}", new ObjectId(id)).as(Liste.class);
     }
 
-    // Méthodes exposées directement par le DAO
+    // Pas de conversion Auto en Objet => plus performant pour faire du JSON
     public static String findByIdAsString(String id) {
         return listes().findOne("{_id:#}", new ObjectId(id)).map(new JSONResultHandler());
 

@@ -1,9 +1,12 @@
 package models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mongodb.WriteResult;
 import org.bson.types.ObjectId;
 import org.jongo.MongoCollection;
 import org.jongo.marshall.jackson.oid.Id;
+import org.jongo.marshall.jackson.oid.ObjectIdDeserializer;
 import uk.co.panaxiom.playjongo.PlayJongo;
 
 import java.util.List;
@@ -12,9 +15,8 @@ import java.util.List;
  * DAO Jongo des paramètres
  */
 public class Parametre {
-    /*@JsonSerialize(using = utils.ObjectIdSerializer.class)
-    @JsonDeserialize(using = ObjectIdDeserializer.class)*/
-    @Id
+    @JsonSerialize(using = utils.ObjectIdSerializer.class)
+    @JsonDeserialize(using = ObjectIdDeserializer.class)
     public String _id;
     public List<Produit> produits;
     public List<Unite> unites;

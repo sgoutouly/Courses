@@ -21,12 +21,10 @@ import com.mongodb.util.JSONSerializers;
 import org.jongo.ResultHandler;
 
 public class JSONResultHandler implements ResultHandler<String> {
+
     public String map(DBObject result) {
         return JSONSerializers.getStrict().serialize(result);
     }
 
 
-    public static String jsonify(String json) {
-        return json.replace("'", "\"");
-    }
 }
