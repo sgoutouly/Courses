@@ -4,7 +4,6 @@ import java.util.*;
 
 import play.Routes;
 import play.libs.F;
-import play.libs.WS;
 import play.mvc.*;
 import play.data.*;
 import static play.data.Form.*;
@@ -80,17 +79,5 @@ public class Application extends Controller {
             )
         );
     }
-
-    /*
-    public static F.Promise<Result> reactiveComposition() {
-
-
-        final F.Promise<WS.Response> twitterPromise = WS.url("http://www.twitter.com").get();
-        final F.Promise<WS.Response> typesafePromise = WS.url("http://www.typesafe.com").get();
-
-        return twitterPromise.flatMap((twitter) ->
-                typesafePromise.map((typesafe) ->
-                        ok(twitter.getBody() + typesafe.getBody())));
-    }*/
 
 }

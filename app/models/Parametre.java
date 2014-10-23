@@ -9,18 +9,15 @@ import uk.co.panaxiom.playjongo.PlayJongo;
 import java.util.List;
 
 /**
- * DAO Jongo des Listes
+ * DAO Jongo des paramètres
  */
 public class Parametre {
+    /*@JsonSerialize(using = utils.ObjectIdSerializer.class)
+    @JsonDeserialize(using = ObjectIdDeserializer.class)*/
     @Id
-    public ObjectId id;
+    public String _id;
     public List<Produit> produits;
     public List<Unite> unites;
-
-    /** Comment convertir l'ID Mongo en String lors du marshalling ! */
-    public String getId() {
-        return this.id.toString();
-    }
 
     //---- Méthodes exposées directement par le DAO
     public static Parametre findById(String id) {

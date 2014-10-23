@@ -56,7 +56,7 @@
             "ease-in"
         );
         this.screenCurrent.innerHTML = val + this.unit;
-    }
+    };
 
     function init() {
 
@@ -117,7 +117,7 @@
             if (d.length == 2) {
                 app[d[1]].update(d[0]);
             }
-        }
+        };
 
         setTimeout(function () {
             app.lastCall = (new Date()).getTime();

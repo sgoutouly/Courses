@@ -19,7 +19,7 @@ public class Liste {
 
     @JsonSerialize(using = utils.ObjectIdSerializer.class)
     @JsonDeserialize(using = ObjectIdDeserializer.class)
-    public String _id;
+    public String _id; 
     public String dateRedaction;
     public String dateCourse;
     public List<Course> courses;
