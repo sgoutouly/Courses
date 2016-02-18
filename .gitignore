@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 logs
 project/project
 project/target
@@ -16,7 +15,6 @@ dist
 /RUNNING_PID
 /.settings
 node_modules
-=======
 .DS_Store
 *.i*
 vf*
@@ -27,4 +25,4 @@ target/
 .settings/
 .springBeans
 /out/
->>>>>>> 1db59b77bea7139ee54a0bdb62c38e9cfc82c432
+
